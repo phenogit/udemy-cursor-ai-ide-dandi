@@ -97,7 +97,7 @@ export default function Dashboard() {
       });
       showNotification("API Key deleted successfully");
     } catch (err) {
-      console.error("Error deleting API key:", err);
+      console.error(`Error deleting API key: ${err}`);
       showNotification("Failed to delete API key", "error");
     }
   };
