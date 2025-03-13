@@ -68,7 +68,7 @@ export default function Sidebar({ isOpen, onToggle }) {
     },
     {
       name: "API Playground",
-      path: "/api-playground",
+      path: "/playground",
       icon: (
         <svg
           className="w-5 h-5"
