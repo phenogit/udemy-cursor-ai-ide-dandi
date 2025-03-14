@@ -6,6 +6,8 @@ import { useNotification } from "@/hooks/useNotification";
 import Notification from "@/components/Notification";
 import ApiKeyTable from "@/components/ApiKeyTable";
 import CreateKeyModal from "@/components/CreateKeyModal";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function Dashboard() {
   const [apiKeys, setApiKeys] = useState([]);
@@ -18,6 +20,8 @@ export default function Dashboard() {
   const [limitEnabled, setLimitEnabled] = useState(false);
 
   const { notification, showNotification } = useNotification();
+  const { data: session, status } = useSession();
+  const router = useRouter();
 
   const fetchApiKeys = useCallback(async () => {
     try {
@@ -28,6 +32,12 @@ export default function Dashboard() {
       showNotification("Failed to load API keys", "error");
     }
   }, [showNotification]);
+
+  useEffect(() => {
+    if (status === "unauthenticated") {
+      router.push("/auth/signin");
+    }
+  }, [status, router]);
 
   useEffect(() => {
     fetchApiKeys();
@@ -119,6 +129,18 @@ export default function Dashboard() {
     },
     [showNotification]
   );
+
+  if (status === "loading") {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>
+      </div>
+    );
+  }
+
+  if (!session) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-[#fafafa] dark:bg-gray-900">
