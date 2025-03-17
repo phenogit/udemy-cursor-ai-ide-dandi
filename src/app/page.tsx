@@ -262,7 +262,7 @@ export default function LandingPage() {
               </div>
             </div>
             <div className="mx-auto grid max-w-5xl grid-cols-1 gap-6 py-12 md:grid-cols-3">
-              <Card className="flex flex-col">
+              <Card className="flex flex-col border-primary">
                 <CardHeader>
                   <CardTitle>Free</CardTitle>
                   <div className="text-3xl font-bold">$0</div>
@@ -294,7 +294,10 @@ export default function LandingPage() {
                   </Link>
                 </CardFooter>
               </Card>
-              <Card className="flex flex-col border-primary">
+              <Card className="flex flex-col  relative">
+              <div className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs font-medium px-2 py-1 rounded-md">
+                  Coming Soon
+                </div>
                 <CardHeader>
                   <CardTitle>Pro</CardTitle>
                   <div className="text-3xl font-bold">$19</div>
@@ -329,12 +332,15 @@ export default function LandingPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Link href="/signup" className="w-full">
-                    <Button className="w-full">Get Started</Button>
-                  </Link>
+                <Button className="w-full" disabled>
+                    Coming Soon
+                  </Button>
                 </CardFooter>
               </Card>
-              <Card className="flex flex-col">
+              <Card className="flex flex-col relative">
+              <div className="absolute top-2 right-2 bg-primary text-primary-foreground text-xs font-medium px-2 py-1 rounded-md">
+                  Coming Soon
+                </div>
                 <CardHeader>
                   <CardTitle>Enterprise</CardTitle>
                   <div className="text-3xl font-bold">$99</div>
@@ -373,11 +379,9 @@ export default function LandingPage() {
                   </ul>
                 </CardContent>
                 <CardFooter>
-                  <Link href="/contact" className="w-full">
-                    <Button variant="outline" className="w-full">
-                      Contact Sales
-                    </Button>
-                  </Link>
+                  <Button className="w-full" disabled>
+                    Coming Soon
+                  </Button>
                 </CardFooter>
               </Card>
             </div>
