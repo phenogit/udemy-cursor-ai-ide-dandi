@@ -151,11 +151,11 @@ export default function Dashboard() {
           onClose={() => setNotification(null)}
         />
       )}
-      <div className="max-w-6xl mx-auto p-8 space-y-8">
+      <div className="max-w-6xl mx-auto p-4 pl-16 sm:p-6 sm:pl-16 md:p-8 md:pl-16 space-y-4 sm:space-y-6 md:space-y-8 md:ml-64">
         {/* Header */}
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <h1 className="text-2xl font-bold">Overview</h1>
+            <h1 className="text-xl sm:text-2xl font-bold pl-2">Overview</h1>
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 bg-green-500 rounded-full"></div>
               <span className="text-sm text-gray-600 dark:text-gray-300">
@@ -163,17 +163,35 @@ export default function Dashboard() {
               </span>
             </div>
           </div>
+          <div className="flex items-center gap-4">
+            <button className="p-2 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm0 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
         </div>
 
         {/* Current Plan Card */}
-        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 via-purple-400 to-amber-300 p-8 text-white">
-          <div className="flex justify-between items-center">
-            <div>
+        <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-purple-600 via-purple-400 to-amber-300 p-4 sm:p-6 md:p-8 text-white">
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <div className="w-full sm:w-auto">
               <div className="text-sm font-medium mb-2">CURRENT PLAN</div>
-              <h2 className="text-3xl font-bold mb-4">Researcher</h2>
-              <div className="flex items-center gap-2">
+              <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+                Researcher
+              </h2>
+              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2">
                 <span className="text-sm">API Limit</span>
-                <div className="w-full max-w-md bg-white/20 rounded-full h-2">
+                <div className="w-full sm:w-64 bg-white/20 rounded-full h-2">
                   <div
                     className="bg-white rounded-full h-2"
                     style={{ width: "2.4%" }}
@@ -182,7 +200,7 @@ export default function Dashboard() {
                 <span className="text-sm">24/1,000 Requests</span>
               </div>
             </div>
-            <button className="px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors">
+            <button className="w-full sm:w-auto px-4 py-2 bg-white/10 hover:bg-white/20 rounded-lg transition-colors">
               Manage Plan
             </button>
           </div>
@@ -190,27 +208,29 @@ export default function Dashboard() {
 
         {/* API Keys Section */}
         <div>
-          <div className="flex justify-between items-center mb-4">
-            <h2 className="text-xl font-semibold">API Keys</h2>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-4">
+            <h2 className="text-lg sm:text-xl font-semibold">API Keys</h2>
             <button
               onClick={() => setShowModal(true)}
-              className="px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
+              className="w-full sm:w-auto px-4 py-2 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition-colors"
             >
               + Create New Key
             </button>
           </div>
 
-          <ApiKeyTable
-            apiKeys={apiKeys}
-            visibleKeys={visibleKeys}
-            copiedId={copiedId}
-            editingId={editingId}
-            onToggleVisibility={handleToggleKeyVisibility}
-            onCopy={handleCopyToClipboard}
-            onEdit={setEditingId}
-            onDelete={handleDeleteKey}
-            onUpdateName={handleUpdateKeyName}
-          />
+          <div className="overflow-x-auto">
+            <ApiKeyTable
+              apiKeys={apiKeys}
+              visibleKeys={visibleKeys}
+              copiedId={copiedId}
+              editingId={editingId}
+              onToggleVisibility={handleToggleKeyVisibility}
+              onCopy={handleCopyToClipboard}
+              onEdit={setEditingId}
+              onDelete={handleDeleteKey}
+              onUpdateName={handleUpdateKeyName}
+            />
+          </div>
         </div>
 
         <CreateKeyModal
@@ -231,12 +251,12 @@ export default function Dashboard() {
         />
 
         {/* Contact Section */}
-        <div className="flex justify-between items-center pt-8 border-t dark:border-gray-700">
-          <p className="text-gray-600 dark:text-gray-400">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pt-6 sm:pt-8 border-t dark:border-gray-700">
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400">
             Have any questions, feedback or need support? We&apos;d love to hear
             from you!
           </p>
-          <button className="px-6 py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-colors">
+          <button className="w-full sm:w-auto px-6 py-3 bg-purple-600 text-white rounded-full hover:bg-purple-700 transition-colors">
             Contact us
           </button>
         </div>
