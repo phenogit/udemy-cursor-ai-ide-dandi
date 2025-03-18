@@ -131,7 +131,7 @@ export default function ApiDemo() {
 
           <TabsContent value="response" className="mt-2">
             <div className="rounded-md bg-muted p-4 overflow-auto max-h-[400px]">
-              <pre className="text-sm font-mono">{JSON.stringify(response, null, 2)}</pre>
+              <pre className="text-sm font-mono whitespace-pre-wrap break-all">{JSON.stringify(response, null, 2)}</pre>
             </div>
           </TabsContent>
         </Tabs>
