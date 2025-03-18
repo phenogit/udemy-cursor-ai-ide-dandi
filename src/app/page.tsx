@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Check, Github, LineChart, GitPullRequest, Star, GitBranch, ArrowRight } from "lucide-react"
 import AuthButtons from "@/components/AuthButtons"
+import ApiDemo from "@/components/ApiDemo"
 
 export default function LandingPage() {
   const { data: session } = useSession();
@@ -244,6 +245,25 @@ export default function LandingPage() {
                   className="rounded-lg object-cover"
                 />
               </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="demo" className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="flex flex-col items-center justify-center space-y-4 text-center">
+              <div className="space-y-2">
+                <div className="inline-block rounded-lg bg-primary px-3 py-1 text-sm text-primary-foreground">
+                  Interactive Demo
+                </div>
+                <h2 className="text-3xl font-bold tracking-tighter md:text-4xl">Try our API</h2>
+                <p className="max-w-[700px] text-muted-foreground md:text-xl">
+                  Experience the power of Dandi&apos;s GitHub analysis API with this interactive demo
+                </p>
+              </div>
+            </div>
+            <div className="mx-auto max-w-5xl py-12">
+              <ApiDemo />
             </div>
           </div>
         </section>
@@ -492,7 +512,7 @@ export default function LandingPage() {
             <Github className="h-6 w-6" />
             <span className="text-lg font-bold">Dandi</span>
           </div>
-          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
+          <p className="text-center text-sm leading-loose text-muted-foreground md:text-left" suppressHydrationWarning>
             © {currentYear} Dandi GitHub Analyzer. All rights reserved.
           </p>
           <div className="flex gap-4">
