@@ -18,6 +18,7 @@ export default function Dashboard() {
   const [showModal, setShowModal] = useState(false);
   const [monthlyLimit, setMonthlyLimit] = useState(1000);
   const [limitEnabled, setLimitEnabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const { notification, showNotification } = useNotification();
   const { data: session, status } = useSession();
@@ -25,23 +26,24 @@ export default function Dashboard() {
 
   const fetchApiKeys = useCallback(async () => {
     try {
+      setIsLoading(true);
       const data = await apiKeyService.fetchKeys();
       setApiKeys(data);
     } catch (err) {
       console.error("Error fetching API keys:", err);
       showNotification("Failed to load API keys", "error");
+    } finally {
+      setIsLoading(false);
     }
   }, [showNotification]);
 
   useEffect(() => {
     if (status === "unauthenticated") {
       router.push("/auth/signin");
+    } else if (status === "authenticated") {
+      fetchApiKeys();
     }
-  }, [status, router]);
-
-  useEffect(() => {
-    fetchApiKeys();
-  }, [fetchApiKeys]);
+  }, [status, router, fetchApiKeys]);
 
   const handleCreateKey = async () => {
     if (!newKeyName) return;
@@ -54,7 +56,7 @@ export default function Dashboard() {
         name: newKeyName,
         key,
         maskedKey,
-        rateLimit: limitEnabled ? monthlyLimit : 1000,
+        rateLimit: limitEnabled ? monthlyLimit : null,
       });
 
       setApiKeys([data, ...apiKeys]);
@@ -130,7 +132,7 @@ export default function Dashboard() {
     [showNotification]
   );
 
-  if (status === "loading") {
+  if (status === "loading" || isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-gray-900"></div>

@@ -1,48 +1,55 @@
-import { supabase } from "@/utils/supabase";
-
 export const apiKeyService = {
   async fetchKeys() {
-    const { data, error } = await supabase
-      .from("api_keys")
-      .select("*")
-      .order("created_at", { ascending: false });
-
-    if (error) throw error;
-    return data;
+    const response = await fetch("/api/api-keys");
+    if (!response.ok) {
+      throw new Error("Failed to fetch API keys");
+    }
+    return response.json();
   },
 
   async createKey({ name, key, maskedKey, usage = 0, rateLimit }) {
-    const { data, error } = await supabase
-      .from("api_keys")
-      .insert([
-        {
-          name,
-          key,
-          masked_key: maskedKey,
-          usage,
-          rate_limit: rateLimit,
-        },
-      ])
-      .select()
-      .single();
+    const response = await fetch("/api/api-keys", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name,
+        key,
+        maskedKey,
+        usage,
+        rateLimit,
+      }),
+    });
 
-    if (error) throw error;
-    return data;
+    if (!response.ok) {
+      throw new Error("Failed to create API key");
+    }
+    return response.json();
   },
 
   async updateKeyName(id, name) {
-    const { error } = await supabase
-      .from("api_keys")
-      .update({ name: name.trim() })
-      .eq("id", id);
+    const response = await fetch(`/api/api-keys/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name }),
+    });
 
-    if (error) throw error;
+    if (!response.ok) {
+      throw new Error("Failed to update API key name");
+    }
   },
 
   async deleteKey(id) {
-    const { error } = await supabase.from("api_keys").delete().eq("id", id);
+    const response = await fetch(`/api/api-keys/${id}`, {
+      method: "DELETE",
+    });
 
-    if (error) throw error;
+    if (!response.ok) {
+      throw new Error("Failed to delete API key");
+    }
   },
 
   generateKey() {
