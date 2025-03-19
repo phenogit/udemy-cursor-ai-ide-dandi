@@ -7,7 +7,7 @@ export const apiKeyService = {
     return response.json();
   },
 
-  async createKey({ name, key, maskedKey, usage = 0, rateLimit }) {
+  async createKey({ name, key, maskedKey, usage = 0, rateLimit = 5 }) {
     const response = await fetch("/api/api-keys", {
       method: "POST",
       headers: {

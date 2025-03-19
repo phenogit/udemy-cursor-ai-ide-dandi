@@ -77,7 +77,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { name, key, maskedKey, usage = 0, rateLimit } = body;
+    const { name, key, maskedKey, usage = 0 } = body;
 
     try {
       const supabase = await createClient();
@@ -91,7 +91,7 @@ export async function POST(request: Request) {
             key,
             masked_key: maskedKey,
             usage,
-            rate_limit: rateLimit,
+            rate_limit: 5,
             email: session.user.email,
           },
         ])
