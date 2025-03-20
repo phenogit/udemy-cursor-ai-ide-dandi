@@ -40,7 +40,7 @@ export default function LandingPage() {
       <main className="flex-1">
         <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48">
           <div className="container px-4 md:px-6">
-            <div className="grid gap-6 lg:grid-cols-[1fr_400px] lg:gap-12 xl:grid-cols-[1fr_500px]">
+            <div className="grid gap-6 lg:grid-cols-[1fr] lg:gap-12 xl:grid-cols-[1fr]">
               <div className="flex flex-col justify-center space-y-4">
                 <div className="space-y-2">
                   <h1 className="text-3xl font-bold tracking-tighter sm:text-5xl xl:text-6xl/none">
@@ -66,17 +66,6 @@ export default function LandingPage() {
                 <div className="flex items-center gap-2 text-sm">
                   <Check className="h-4 w-4 text-primary" />
                   <span>No credit card required</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-center">
-                <div className="relative h-[350px] w-full overflow-hidden rounded-xl border bg-background p-2 shadow-xl">
-                  <Image
-                    src="/vercel.svg?height=350&width=500"
-                    width={500}
-                    height={350}
-                    alt="Dashboard preview"
-                    className="rounded-lg object-cover"
-                  />
                 </div>
               </div>
             </div>
@@ -233,17 +222,6 @@ export default function LandingPage() {
                 <p className="text-muted-foreground">
                   View detailed analytics, summaries, and recommendations for the repository.
                 </p>
-              </div>
-            </div>
-            <div className="mx-auto flex max-w-5xl justify-center">
-              <div className="relative h-[400px] w-full overflow-hidden rounded-xl border bg-background p-2 shadow-xl">
-                <Image
-                  src="/vercel.svg?height=400&width=800"
-                  width={800}
-                  height={400}
-                  alt="Dashboard example"
-                  className="rounded-lg object-cover"
-                />
               </div>
             </div>
           </div>

@@ -3,6 +3,8 @@
 import type React from "react"
 
 import { useState } from "react"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
@@ -18,48 +20,77 @@ interface ApiResponse {
     cool_facts: string[]
   }
   githubUrl: string
+  stars: number
+  latestVersion: string
+  websiteUrl: string
+  license: {
+    name: string
+    url: string
+  }
 }
 
 export default function ApiDemo() {
+  const { data: session } = useSession()
+  const router = useRouter()
   const [githubUrl, setGithubUrl] = useState("https://github.com/assafelovic/gpt-researcher")
   const [apiKey, setApiKey] = useState("dandi-2pjaikfu-bi4uyry3a")
   const [loading, setLoading] = useState(false)
   const [response, setResponse] = useState<ApiResponse>({
     valid: true,
     summary: {
-      summary:
-        "GPT Researcher is an open deep research agent designed for web and local research tasks, providing detailed and unbiased research reports with citations. It offers customization options and addresses misinformation, speed, determinism, and reliability. The project aims to empower individuals and organizations with accurate and factual information through AI.",
+      summary: "GPT Researcher is an open deep research agent designed for web and local research tasks, providing detailed and unbiased research reports with citations. It offers customization options and addresses misinformation, speed, determinism, and reliability in research. The project aims to empower individuals and organizations with accurate information through AI.",
       cool_facts: [
         "Utilizes 'planner' and 'execution' agents for generating research questions and gathering information",
         "Includes Deep Research feature for recursive research workflow with configurable depth and breadth",
         "Offers frontend applications for improved user experience and streamlined research process",
         "Welcomes contributions and has a roadmap for future development",
-        "Provides support through a community Discord and author email",
+        "Provides support through a community Discord and author email"
       ],
     },
     githubUrl: "https://github.com/assafelovic/gpt-researcher",
+    stars: 20348,
+    latestVersion: "v3.2.4",
+    websiteUrl: "https://gptr.dev",
+    license: {
+      name: "Apache License 2.0",
+      url: "https://api.github.com/licenses/apache-2.0"
+    }
   })
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
 
+    if (session) {
+      // If authenticated, redirect to playground
+      router.push("/playground")
+    } else {
+      // If not authenticated, redirect to sign in
+      router.push("/auth/signin")
+    }
+
     // Simulate API call with a timeout
-    // In a real implementation, you would make an actual fetch request to your API
     setTimeout(() => {
       setResponse({
         valid: true,
         summary: {
-          summary: `Analysis of ${githubUrl}: This repository contains a project that analyzes GitHub repositories and provides insights about their structure, contributors, and features.`,
+          summary: "GPT Researcher is an open deep research agent designed for web and local research tasks, providing detailed and unbiased research reports with citations. It offers customization options and addresses misinformation, speed, determinism, and reliability in research. The project aims to empower individuals and organizations with accurate information through AI.",
           cool_facts: [
-            "Created in 2023 with regular updates",
-            "Has contributors from multiple countries",
-            "Implements modern web technologies",
-            "Features comprehensive documentation",
-            "Includes automated testing",
+            "Utilizes 'planner' and 'execution' agents for generating research questions and gathering information",
+            "Includes Deep Research feature for recursive research workflow with configurable depth and breadth",
+            "Offers frontend applications for improved user experience and streamlined research process",
+            "Welcomes contributions and has a roadmap for future development",
+            "Provides support through a community Discord and author email"
           ],
         },
         githubUrl: githubUrl,
+        stars: 20348,
+        latestVersion: "v3.2.4",
+        websiteUrl: "https://gptr.dev",
+        license: {
+          name: "Apache License 2.0",
+          url: "https://api.github.com/licenses/apache-2.0"
+        }
       })
       setLoading(false)
     }, 1500)
