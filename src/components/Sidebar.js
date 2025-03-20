@@ -2,9 +2,16 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
+import { useSession, signOut } from "next-auth/react";
 
 export default function Sidebar({ isOpen, onToggle }) {
   const pathname = usePathname();
+  const { data: session } = useSession();
+
+  const handleSignOut = () => {
+    signOut({ callbackUrl: "/" });
+  };
 
   const isActive = (path) => pathname === path;
 
@@ -155,6 +162,59 @@ export default function Sidebar({ isOpen, onToggle }) {
             ))}
           </ul>
         </nav>
+
+        {/* User Profile Section */}
+        {session?.user && (
+          <div className="border-t border-gray-200 dark:border-gray-800 p-4">
+            <div className="flex items-center gap-3">
+              <div className="relative w-10 h-10 rounded-full overflow-hidden bg-gray-100 dark:bg-gray-800">
+                {session.user.image ? (
+                  <Image
+                    src={session.user.image}
+                    alt={`${session.user.name || "User"}'s avatar`}
+                    fill
+                    className="object-cover"
+                  />
+                ) : (
+                  <svg
+                    className="h-full w-full text-gray-300 dark:text-gray-600"
+                    fill="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" />
+                  </svg>
+                )}
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">
+                  {session.user.name || "Anonymous User"}
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-400 truncate">
+                  {session.user.email}
+                </p>
+              </div>
+            </div>
+            <button
+              onClick={handleSignOut}
+              className="mt-4 w-full flex items-center gap-2 px-3 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded-lg transition-colors"
+            >
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                />
+              </svg>
+              Sign out
+            </button>
+          </div>
+        )}
       </div>
     </>
   );
