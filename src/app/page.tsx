@@ -270,7 +270,7 @@ export default function LandingPage() {
                   <ul className="space-y-2 text-sm">
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-primary" />
-                      <span>5 repository analyses per month</span>
+                      <span>5 API requests per API key</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-primary" />
@@ -278,7 +278,7 @@ export default function LandingPage() {
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-primary" />
-                      <span>Star growth tracking</span>
+                      <span>Star gazer count</span>
                     </li>
                     <li className="flex items-center gap-2">
                       <Check className="h-4 w-4 text-primary" />
